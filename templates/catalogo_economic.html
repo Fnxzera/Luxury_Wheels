@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+    <title>Luxury Wheels</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Fonte Archivo Black -- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <title>Luxury Wheels</title>
+</head>
+<body>
+    <h1 style="font-family: 'Oswald', sans-serif;font-size: 20px;margin-top: 20px;margin-left: 20px;color: #000000">Bem vindo(a) {{usuario}}!</h1>
+    <div class="Cabeçalho">
+    <main class="container p-4">
+      <h1 class="display-3 text-center mt0 titulo">Catálogo</h1>
+    </main>
+    <p style="font-family: 'Oswald', sans-serif;font-size: 20px; color: #000000; text-align: center; margin-top: -25px;">Cliente Gold</p>
+    </div>
+    <div class="catalogo">
+
+        <div class="item">
+            <img src="static/car_economic/500.png" alt="Imagem 13">
+            <p style="font-weight: bold;">FIAT 500</p>
+            <p style="margin-bottom: 0px">Valor diário: 30€</p>
+        </div>
+        <div class="item">
+            <img src="static/car_economic/clio.png" alt="Imagem 14">
+            <p style="font-weight: bold;">RENAULT CLIO</p>
+            <p style="margin-bottom: 0px">Valor diário: 40€</p>
+        </div>
+        <div class="item">
+            <img src="static/car_economic/pegeot208.png" alt="Imagem 15">
+            <p style="font-weight: bold;">PEGEOT 208</p>
+            <p style="margin-bottom: 0px">Valor diário: 50€</p>
+        </div>
+        <div class="item">
+            <img src="static/car_economic/sandero.png" alt="Imagem 16">
+            <p style="font-weight: bold;">DACIA SANDERO</p>
+            <p style="margin-bottom: 0px">Valor diário: 45€</p>
+        </div>
+        <div class="item">
+            <img src="static/car_economic/smart.jpeg" alt="Imagem 17">
+            <p style="font-weight: bold;">SMART FORTWO</p>
+            <p style="margin-bottom: 0px">Valor diário: 20€</p>
+        </div>
+        <div class="item">
+            <img src="static/car_economic/up.png" alt="Imagem 18">
+            <p style="font-weight: bold;">VW UP</p>
+            <p style="margin-bottom: 0px">Valor diário: 25€</p>
+        </div>
+    </div>
+    <div class = "pagamento">
+        <div class = "container p-4">
+            <h1 style="font-weight: bold">Faça a sua reserva!</h1>
+        </div>
+    </div>
+    <div class = "form-control" style="text-align: center; margin-bottom: 30px ">
+        <form action="/total" method="post" >
+
+        <label for="dataRecolha" style="margin-left: 50px " >Data de Recolha:</label>
+        <input type="date" id="dataRecolha" name="data_recolha" required>
+        <script>
+            document.getElementById('dataRecolha').min = new Date().toISOString().split('T')[0];
+        </script>
+        <label for="dataDevolucao" style="margin-left: 50px ">Data de Devolução:</label>
+        <input type="date" id="dataDevolucao" name="data_devolucao" required>
+        <script>
+            document.getElementById('dataRecolha').addEventListener('change', function() {
+
+                var dataRecolha = new Date(this.value);
+                dataRecolha.setDate(dataRecolha.getDate() + 1); // Adiciona um dia à data de recolha
+                var dataMinDevolucao = dataRecolha.toISOString().split('T')[0];
+                document.getElementById('dataDevolucao').min = dataMinDevolucao;
+            });
+        </script>
+        <div class="total">
+            <button type="submit" class="btn btn-primary btn-block mx-auto" style="margin-bottom: 20px; margin-top: 20px ">RESERVAR AGORA</button>
+
+        </div>
+        </form>
+
+    </div>
+</body>
+</html>

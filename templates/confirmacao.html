@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Wheels</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Fonte Archivo Black -- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <title>Luxury Wheels</title>
+
+</head>
+<body>
+    <main class="container p-4">
+      <h1 class= "titulo">REVISE SUA RESERVA</h1>
+    </main>
+    <div class="form-control dados-cliente" style="text-align: center; margin-bottom: 30px ">
+        <div class="itemm" style="margin-lef: 100px">
+            <label>CARRO ESCOLHIDO:</label>
+            <label>{{carro}}</label>
+        </div>
+        <div class="itemm">
+            <label >PERÍODO:</label>
+            <label>{{data_recolha}} à {{data_devolucao}}</label>
+        </div>
+        <div class="itemm">
+            <label >VALOR TOTAL:</label>
+            <label>{{total}}</label>
+        </div>
+    </div>
+    <form action="/finalizacao" method="post">
+    <div class="form-control opcoes-pagamento">
+
+        <h2 class="titulo" >Opções de Pagamento</h2>
+
+        <div class="opcao-pagamento">
+            <input type="radio" id="pagamento-transferencia" name="opcao-pagamento" value="transferencia">
+            <label for="pagamento-transferencia">Pagamento por Transferência Bancária</label>
+
+            <input type="radio" id="pagamento-cartao" name="opcao-pagamento" value="cartao">
+            <label for="pagamento-cartao">Pagamento por Cartão</label>
+        </div>
+        <div id="dados-cartao" class="hidden">
+            <div>
+                <label style="margin-right: 80px" for="nome">Nome:</label>
+                <input class = "item-nome" type="text" id="nome" name="nome"><br>
+
+                <label style="margin-right: 10px" for="numero-cartao">Número do Cartão:</label>
+                <input class = "itemm" type="text" id="numero-cartao" name="numero-cartao"><br>
+
+                <label for="validade">Validade (mm/aaaa):</label>
+                <input class = "itemm" type="text" id="validade" name="validade" placeholder="mm/aaaa"><br>
+
+                <label for="codigo-seguranca">Código de Segurança:</label>
+                <input class = "itemm" type="text" id="codigo-seguranca" name="codigo-seguranca"><br>
+            </div>
+        </div>
+        <div id="dados-transferencia" >
+                <label for="numero-iban">IBAN para tranferência:</label>
+                <input type="text" id="numero-iban" name="numero-iban">
+        </div>
+        {% set mensagem = get_flashed_messages() %}
+                          {% if mensagem  %}
+                            <div class="flash_alerta">
+                                {{mensagem[0]}}
+                            </div>
+                          {%  endif %}
+        <script>
+            const opcaoTransferencia = document.getElementById('pagamento-transferencia');
+            const opcaoCartao = document.getElementById('pagamento-cartao');
+            const dadosCartao = document.getElementById('dados-cartao');
+            const validadeInput = document.getElementById('validade');
+
+            opcaoTransferencia.addEventListener('change', function() {
+                dadosCartao.classList.add('hidden');
+                });
+            opcaoCartao.addEventListener('change', function() {
+                dadosCartao.classList.remove('hidden');
+                });
+            validadeInput.addEventListener('input', function() {
+                if (this.value.length === 2 && this.value.indexOf('/') === -1) {
+                    this.value += '/';
+                    }
+                });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                function toggleIBANField() {
+                    const pagamentoTransferencia = document.getElementById('pagamento-transferencia');
+                    const dadosTransferencia = document.getElementById('dados-transferencia');
+
+                    dadosTransferencia.style.display = pagamentoTransferencia.checked ? 'block' : 'none';
+                }
+                const opcoesPagamento = document.querySelectorAll('input[name="opcao-pagamento"]');
+                opcoesPagamento.forEach(function (opcao) {
+                    opcao.addEventListener('change', toggleIBANField);
+                });
+                toggleIBANField();
+            });
+        </script>
+        <div class="form-control">
+            <button class="btn btn-primary">Confirmar Reserva</button>
+        </div>
+    </div>
+    </form>
+
+</body>
+</html>

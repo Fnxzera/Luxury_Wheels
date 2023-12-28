@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+    <title>Luxury Wheels</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Fonte Archivo Black -- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <title>Luxury Wheels</title>
+</head>
+<body>
+    <h1 style="font-family: 'Oswald', sans-serif;font-size: 20px;margin-top: 20px;margin-left: 20px;color: #000000">Bem vindo(a) {{usuario}}!</h1>
+    <div class="Cabeçalho">
+    <main class="container p-4">
+      <h1 class="display-3 text-center mt0 titulo">Catálogo</h1>
+    </main>
+    <p style="font-family: 'Oswald', sans-serif;font-size: 20px; color: #000000; text-align: center; margin-top: -25px;">Cliente Gold</p>
+    </div>
+    <div class="catalogo">
+
+        <div class="item">
+            <img src="static/car_gold/AUDI_A4.png" alt="Imagem 1">
+            <p style="font-weight: bold;">AUDI A4</p>
+            <p style="margin-bottom: 0px">Valor diário: 300€</p>
+        </div>
+        <div class="item">
+            <img src="static/car_gold/BMW_320i.png" alt="Imagem 2">
+            <p style="font-weight: bold;">BMW 320i</p>
+            <p style="margin-bottom: 0px">Valor diário: 400€</p>
+        </div>
+        <div class="item">
+            <img src="static/car_gold/MERCEDESBENZ_A_180.png" alt="Imagem 3">
+            <p style="font-weight: bold;">MERCEDES BENZ A180</p>
+            <p style="margin-bottom: 0px">Valor diário: 300€</p>
+        </div>
+        <div class="item">
+            <img src="static/car_gold/PORSHE_911.jpg" alt="Imagem 4">
+            <p style="font-weight: bold;">PORSHE 911</p>
+            <p style="margin-bottom: 0px">Valor diário: 600€</p>
+        </div>
+        <div class="item">
+            <img src="static/car_gold/TESLA_MODELS.jpg" alt="Imagem 5">
+            <p style="font-weight: bold;">TESLA MODEL S</p>
+            <p style="margin-bottom: 0px">Valor diário: 450€</p>
+        </div>
+        <div class="item">
+            <img src="static/car_gold/VOLVO_XC60.jpg" alt="Imagem 6">
+            <p style="font-weight: bold;">VOLVO XC60</p>
+            <p style="margin-bottom: 0px">Valor diário: 350€</p>
+        </div>
+    </div>
+    <div class = "pagamento">
+        <div class = "container p-4">
+            <h1 style="font-weight: bold">Faça a sua reserva!</h1>
+        </div>
+    </div>
+    <div class = "form-control" style="text-align: center; margin-bottom: 30px ">
+        <form action="/total" method="post" >
+
+        <label for="dataRecolha" style="margin-left: 50px " >Data de Recolha:</label>
+        <input type="date" id="dataRecolha" name="data_recolha" required>
+        <script>
+            document.getElementById('dataRecolha').min = new Date().toISOString().split('T')[0];
+        </script>
+        <label for="dataDevolucao" style="margin-left: 50px ">Data de Devolução:</label>
+        <input type="date" id="dataDevolucao" name="data_devolucao" required>
+        <script>
+            document.getElementById('dataRecolha').addEventListener('change', function() {
+
+                var dataRecolha = new Date(this.value);
+                dataRecolha.setDate(dataRecolha.getDate() + 1); // Adiciona um dia à data de recolha
+                var dataMinDevolucao = dataRecolha.toISOString().split('T')[0];
+                document.getElementById('dataDevolucao').min = dataMinDevolucao;
+            });
+        </script>
+        <div class="total">
+            <button type="submit" class="btn btn-primary btn-block mx-auto" style="margin-bottom: 20px; margin-top: 20px ">RESERVAR AGORA</button>
+
+        </div>
+        </form>
+
+    </div>
+</body>
+</html>
